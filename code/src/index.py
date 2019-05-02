@@ -1,18 +1,33 @@
 from coin import coinPrivacy
+from laplace import laplaceMechanism
 from fileHandler import FileHandler
 
 def main():
-  print('Starting work')
-  coinMethod = coinPrivacy.CoinPrivateMethod()
-  coinMethod.printProb()
-
   inputValues = FileHandler('../data/test.txt')
-  outputValues = FileHandler('../data/coinAnswer50.txt', 'w')
+  coinOutputValues = FileHandler('../data/coinAnswer50.txt', 'w')
+  laplaceOutputValues = FileHandler('../data/laplaceAnswer50.txt', 'w')
+
+  coinMethod = coinPrivacy.CoinPrivateMethod()
+  laplaceMethod = laplaceMechanism.LaplacianMethod()
+  
+  laplaceMean = 0.
+  counter = 1
+
   for answer in inputValues.readLines():
-    privateAnswer = coinMethod.generatePrivateAnswer(True if answer == 'yes' else False)
-    outputValues.writeLine('yes' if privateAnswer else 'no')
+    # Coin
+    privateCoinAnswer = coinMethod.generatePrivateAnswer(True if answer == 'yes' else False)
+    coinOutputValues.writeLine('yes' if privateCoinAnswer else 'no')
+
+    # Laplace
+    privateLaplaceAnswer = laplaceMethod.generatePrivateAnswer(1. if answer == 'yes' else -1.)
+    laplaceMean = ((laplaceMean * counter) + privateLaplaceAnswer) / (counter + 1)
+    counter += 1
+    laplaceOutputValues.writeLine(str(privateLaplaceAnswer))
+
+  laplaceOutputValues.writeLine("Mean = " + str(laplaceMean))
+  del coinOutputValues
+  del laplaceOutputValues
   del inputValues
-  del outputValues
 
 if __name__ == '__main__':
   main()

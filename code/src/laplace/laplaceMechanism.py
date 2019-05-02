@@ -12,6 +12,6 @@ class LaplacianMethod:
       sanitizedTruth = float(truth)
     except:
       return 0
-    noise = np.random.laplace(mean, scale, 1)[0]
+    noise = np.random.laplace(self._mean, self._scale, 1)[0]
     return sanitizedTruth + noise
   
