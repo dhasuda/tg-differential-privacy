@@ -1,9 +1,9 @@
-from coinPrivacy import CoinPrivateMethod
+from coin import coinPrivacy
 from fileHandler import FileHandler
 
 def main():
   print('Starting work')
-  coinMethod = CoinPrivateMethod()
+  coinMethod = coinPrivacy.CoinPrivateMethod()
   coinMethod.printProb()
 
   inputValues = FileHandler('../data/test.txt')
