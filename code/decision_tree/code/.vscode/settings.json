@@ -1,3 +1,5 @@
 {
-  "python.pythonPath": "/Users/davigrossihasuda/Documents/ITA/TG/tg-differential-privacy/code/decision_tree/decision_tree/bin/python"
+  "python.pythonPath": "/Users/davigrossihasuda/Documents/ITA/TG/tg-differential-privacy/code/decision_tree/decision_tree/bin/python",
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true
 }
