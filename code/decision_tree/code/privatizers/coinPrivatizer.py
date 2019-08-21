@@ -4,7 +4,15 @@ class CoinPrivatizer:
   _headsProbability = 0.5
 
   def __init__(self, headsProbability=0.5):
-    self._headsProbability = headsProbability
+    self.setHeadsProbability(headsProbability)
+  
+  def setHeadsProbability(self, probability):
+    if (type(probability) != float):
+      raise ValueError('Not a valid headsProbability value. It must be a float')
+    if (probability < 0 or probability > 1):
+      raise ValueError('Not a valid headsProbability value. It must be between 0 and 1')
+
+    self._headsProbability = probability
 
   def privatize(self, data):
     if (type(data) != list):
