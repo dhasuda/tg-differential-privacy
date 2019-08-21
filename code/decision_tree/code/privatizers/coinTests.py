@@ -1,7 +1,7 @@
 import unittest
 import coinPrivatizer
 
-class PrivatizersTests(unittest.TestCase):
+class CoinPrivatizersTests(unittest.TestCase):
   _coinPrivatizer = coinPrivatizer.CoinPrivatizer()
 
   def testCoinInitializer(self):
