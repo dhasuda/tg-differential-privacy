@@ -6,6 +6,10 @@ Setting up the python environment is the first step in order to get everything r
 
 All the development was made inside a virtual environment, that we called simply `decision_tree`. In this environment, all the necessary packages were installed, including scikit and jupyter notebook.
 
+To activate the environment, simply use the command: `source mypython/bin/activate`.
+
+Commanding `jupyter notebook` starts the jupyter notebook.
+
 Below, you can see all the packages installed: 
 
 
