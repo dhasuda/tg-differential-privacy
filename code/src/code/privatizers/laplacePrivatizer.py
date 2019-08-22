@@ -11,6 +11,16 @@ class LaplacePrivatizer:
       raise ValueError('Not a valid scale')
     self._scale = scale
 
+  def privatize(self, data):
+    if (type(data) != list):
+      raise ValueError('Not a list')
+    
+    privatizedData = []
+    for value in data:
+      privatizedList = self.privatizeList(value)
+      privatizedData.append(privatizedList)
+    return privatizedData
+
   def privatizeList(self, data):
     if (type(data) != list):
       raise ValueError('Not a list')

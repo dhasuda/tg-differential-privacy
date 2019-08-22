@@ -46,6 +46,23 @@ class LaplacePrivatizerTests(unittest.TestCase):
     for value in notEmptyList:
       self.assertTrue(type(value) == float)
 
+  def testPrivatize(self):
+    priv = laplacePrivatizer.LaplacePrivatizer()
+
+    with self.assertRaises(ValueError) as context:
+      priv.privatize(1.0)
+    self.assertTrue('Not a list' in context.exception)
+
+    emptyList = priv.privatize([])
+    self.assertEqual([], emptyList)
+
+    notEmptyList = priv.privatize([[-1., 0., 1., 2.], [-1., 0.]])
+    self.assertEqual(len(notEmptyList), len([[-1., 0., 1., 2.], [-1., 0.]]))
+    for value in notEmptyList:
+      self.assertTrue(type(value) == list)
+
+
+
 
 if __name__ == "__main__":
   unittest.main()
