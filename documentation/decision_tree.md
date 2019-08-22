@@ -4,7 +4,16 @@
 
 Setting up the python environment is the first step in order to get everything running properly. For that, we used `pip` to manage all packages.
 
-All the development was made inside a virtual environment, that we called simply `decision_tree`. In this environment, all the necessary packages were installed, including scikit and jupyter notebook.
+All the development was made inside a virtual environment, that we called simply `venv`. In this environment, all the necessary packages were installed, including scikit and jupyter notebook.
+
+Just in case you want to create your own virtualenv, you can install all packages with the commands:
+
+```
+pip install jupyter
+pip install -U scikit-learn
+pip install matplotlib
+```
+
 
 To activate the environment, simply use the command: `source mypython/bin/activate`.
 
