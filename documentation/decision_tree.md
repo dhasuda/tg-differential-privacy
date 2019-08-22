@@ -15,7 +15,7 @@ pip install matplotlib
 ```
 
 
-To activate the environment, simply use the command: `source mypython/bin/activate`.
+To activate the environment, simply use the command: `source venv/bin/activate`.
 
 Commanding `jupyter notebook` starts the jupyter notebook.
 
