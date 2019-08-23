@@ -12,24 +12,13 @@ class ExponentialPrivatizer:
     self._scale = scale
 
   def privatize(self, data):
-    if (type(data) != list):
-      raise ValueError('Not a list')
-    
-    privatizedData = []
-    for value in data:
-      privatizedList = self.privatizeList(value)
-      privatizedData.append(privatizedList)
-    return privatizedData
-
-  def privatizeList(self, data):
-    if (type(data) != list):
-      raise ValueError('Not a list')
-    
-    privatizedList = []
-    for value in data:
-      privateValue = self.privatizeSingleAnswer(value)
-      privatizedList.append(privateValue)
-    return privatizedList
+    if (type(data) == list):
+      privatizedData = []
+      for value in data:
+        privatizedData.append(self.privatize(value))
+      return privatizedData
+    else:
+      return self.privatizeSingleAnswer(data)
 
   def privatizeSingleAnswer(self, truth):
     sanitizedTruth = 0
