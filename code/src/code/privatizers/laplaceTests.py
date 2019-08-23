@@ -4,18 +4,10 @@ import laplacePrivatizer
 class LaplacePrivatizerTests(unittest.TestCase):
 
   def testInitializer(self):
-    with self.assertRaises(ValueError) as stringContext:
-      laplacePrivatizer.LaplacePrivatizer('a')
-    self.assertTrue('Not a valid scale' in stringContext.exception)
-
-    with self.assertRaises(ValueError) as negativeContext:
-      laplacePrivatizer.LaplacePrivatizer(0.)
-    self.assertTrue('Not a valid scale' in negativeContext.exception)
-
-    with self.assertRaises(ValueError) as zeroContext:
-      laplacePrivatizer.LaplacePrivatizer(-1.)
-    self.assertTrue('Not a valid scale' in zeroContext.exception)
-
+    self.assertRaises(ValueError, lambda:laplacePrivatizer.LaplacePrivatizer('a'))
+    self.assertRaises(ValueError, lambda: laplacePrivatizer.LaplacePrivatizer(0.))
+    self.assertRaises(ValueError, lambda: laplacePrivatizer.LaplacePrivatizer(-1.))
+      
     priv = laplacePrivatizer.LaplacePrivatizer()
     self.assertEqual(1., priv._scale)
 
@@ -24,9 +16,8 @@ class LaplacePrivatizerTests(unittest.TestCase):
 
   def testPrivatizeSingleAnswer(self):
     priv = laplacePrivatizer.LaplacePrivatizer()
-    with self.assertRaises(ValueError) as context:
-      priv.privatizeSingleAnswer('a')
-    self.assertTrue('Not valid value to be privatized' in context.exception)
+    self.assertRaises(ValueError, lambda: priv.privatizeSingleAnswer('a'))
+      
 
     answer = priv.privatizeSingleAnswer(1.0)
     self.assertTrue(type(answer) == float)

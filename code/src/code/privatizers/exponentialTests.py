@@ -4,17 +4,9 @@ import exponentialPrivatizer
 class ExponentialPrivatizerTests(unittest.TestCase):
 
   def testInitializer(self):
-    with self.assertRaises(ValueError) as stringContext:
-      exponentialPrivatizer.ExponentialPrivatizer('a')
-    self.assertTrue('Not a valid scale' in stringContext.exception)
-
-    with self.assertRaises(ValueError) as negativeContext:
-      exponentialPrivatizer.ExponentialPrivatizer(0.)
-    self.assertTrue('Not a valid scale' in negativeContext.exception)
-
-    with self.assertRaises(ValueError) as zeroContext:
-      exponentialPrivatizer.ExponentialPrivatizer(-1.)
-    self.assertTrue('Not a valid scale' in zeroContext.exception)
+    self.assertRaises(ValueError, lambda: exponentialPrivatizer.ExponentialPrivatizer('a'))
+    self.assertRaises(ValueError, lambda: exponentialPrivatizer.ExponentialPrivatizer(0.))
+    self.assertRaises(ValueError, lambda: exponentialPrivatizer.ExponentialPrivatizer(-1.))
 
     priv = exponentialPrivatizer.ExponentialPrivatizer()
     self.assertEqual(1., priv._scale)
@@ -24,9 +16,7 @@ class ExponentialPrivatizerTests(unittest.TestCase):
 
   def testPrivatizeSingleAnswer(self):
     priv = exponentialPrivatizer.ExponentialPrivatizer()
-    with self.assertRaises(ValueError) as context:
-      priv.privatizeSingleAnswer('a')
-    self.assertTrue('Not valid value to be privatized' in context.exception)
+    self.assertRaises(ValueError, lambda: priv.privatizeSingleAnswer('a'))
 
     answer = priv.privatizeSingleAnswer(1.0)
     self.assertTrue(type(answer) == float)
