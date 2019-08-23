@@ -21,15 +21,23 @@ class CoinPrivatizersTests(unittest.TestCase):
     self.assertEqual(0.1, coinPrivit._headsProbability)
     coinPrivit.setHeadsProbability(0.6)
     self.assertEqual(0.6, coinPrivit._headsProbability)
-  
-  def testCoinPrivatizerInvalidDataInput(self):
-    with self.assertRaises(ValueError) as context:
-      self._coinPrivatizer.privatize(1)
-    self.assertTrue('Not a valid data input' in context.exception)
 
   def testCoinSingleAnswerInvalidInput(self):
     with self.assertRaises(ValueError) as context:
-      self._coinPrivatizer.privatizeSingleAnswer(2)
+      self._coinPrivatizer.privatizeSingleAnswer(1)
+    self.assertTrue('Truth is not a bool value' in context.exception)
+
+  def testPrivatizeInvalidInput(self):
+    with self.assertRaises(ValueError) as context:
+      self._coinPrivatizer.privatize([True, False, 1])
+    self.assertTrue('Truth is not a bool value' in context.exception)
+
+    with self.assertRaises(ValueError) as context:
+      self._coinPrivatizer.privatize([[True, False], [1, 2]])
+    self.assertTrue('Truth is not a bool value' in context.exception)
+
+    with self.assertRaises(ValueError) as context:
+      self._coinPrivatizer.privatize([[True, False], 1])
     self.assertTrue('Truth is not a bool value' in context.exception)
 
   def testCoinSingleAnswer(self):
@@ -41,45 +49,38 @@ class CoinPrivatizersTests(unittest.TestCase):
     self.assertEqual(False, coinPrivit.privatizeSingleAnswer(True))
     self.assertEqual(False, coinPrivit.privatizeSingleAnswer(False))
 
-  def testCoinPrivatizeListInvlidInput(self):
-    with self.assertRaises(ValueError) as context:
-      self._coinPrivatizer.privatizeList(True)
-    self.assertTrue('Not a list' in context.exception)
-
-    with self.assertRaises(ValueError) as context:
-      self._coinPrivatizer.privatizeList([0, 1])
-    self.assertTrue('Invalid value in list' in context.exception)
-
-
   def testCoinPrivatizeList(self):
     coinPriv = coinPrivatizer.CoinPrivatizer(1.0)
     testList = [True, False, True, False]
-    resultList = coinPriv.privatizeList(testList)
+    resultList = coinPriv.privatize(testList)
     self.assertEqual([False, False, False, False], resultList)
 
     coinPriv.setHeadsProbability(0.0)
     testList = [True, False, True, False]
-    resultList = coinPriv.privatizeList(testList)
+    resultList = coinPriv.privatize(testList)
     self.assertEqual([True, False, True, False], resultList)
 
-    resultList = coinPriv.privatizeList([])
+    resultList = coinPriv.privatize([])
     self.assertEqual([], resultList)
 
-  def testCoinPrivatizeInvalidInput(self):
-    with self.assertRaises(ValueError) as context:
-      self._coinPrivatizer.privatize(True)
-    self.assertTrue('Not a valid data input' in context.exception)
-
-  def testCoinPrivatize(self):
+  def testCoinPrivatizeRecursiveList(self):
     coinPriv = coinPrivatizer.CoinPrivatizer(1.0)
     testData = [[True, False], [True, True], [False, False]]
     resultData = coinPriv.privatize(testData)
     self.assertEqual([[False, False], [False, False], [False, False]], resultData)
 
+    testData = [[True, False], [True, True], [False, False], False, True]
+    resultData = coinPriv.privatize(testData)
+    self.assertEqual([[False, False], [False, False], [False, False], False, False], resultData)
+
     coinPriv.setHeadsProbability(0.0)
     testData = [[True, False], [True, True], [False, False]]
     resultData = coinPriv.privatize(testData)
     self.assertEqual([[True, False], [True, True], [False, False]], resultData)
+
+    testData = [[True, False], [True, True], [False, False], True, False]
+    resultData = coinPriv.privatize(testData)
+    self.assertEqual([[True, False], [True, True], [False, False], True, False], resultData)
 
     resultList = coinPriv.privatize([])
     self.assertEqual([], resultList)

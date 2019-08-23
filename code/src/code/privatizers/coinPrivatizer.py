@@ -15,25 +15,14 @@ class CoinPrivatizer:
     self._headsProbability = probability
 
   def privatize(self, data):
-    if (type(data) != list):
-      raise ValueError('Not a valid data input')
-    
-    resultData = []
+    if (type(data) == list):
+      resultData = []
+      for value in data:
+        resultData.append(self.privatize(value))
+      return resultData
+    else:
+      return self.privatizeSingleAnswer(data)
 
-    for listData in data:
-      resultData.append(self.privatizeList(listData))
-    
-    return resultData
-
-  def privatizeList(self, listData):
-    if (type(listData) != list):
-      raise ValueError('Not a list')
-    resultList = []
-    for singleData in listData:
-      if (type(singleData) != bool):
-        raise ValueError('Invalid value in list')
-      resultList.append(self.privatizeSingleAnswer(singleData))
-    return resultList
 
   def privatizeSingleAnswer(self, truth): 
     if (type(truth) != bool):
