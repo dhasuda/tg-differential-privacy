@@ -1,6 +1,7 @@
 import numpy as np
+import abstractPrivatizer
 
-class LaplacePrivatizer:
+class LaplacePrivatizer(abstractPrivatizer.AbstractPrivatizer):
   _mean = 0.0
   _scale = 1.0
 
@@ -11,19 +12,10 @@ class LaplacePrivatizer:
       raise ValueError('Not a valid scale')
     self._scale = scale
 
-  def privatize(self, data):
-    if (type(data) == list):
-      privatizedData = []
-      for value in data:
-        privatizedData.append(self.privatize(value))
-      return privatizedData
-    else:
-      return self.privatizeSingleAnswer(data)
-
-  def privatizeSingleAnswer(self, truth):
+  def privatizeSingleAnswer(self, value):
     sanitizedTruth = 0
     try:
-      sanitizedTruth = float(truth)
+      sanitizedTruth = float(value)
     except:
       raise ValueError('Not valid value to be privatized')
     noise = np.random.laplace(self._mean, self._scale, 1)[0]

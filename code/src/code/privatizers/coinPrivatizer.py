@@ -1,6 +1,7 @@
 import random
+import abstractPrivatizer
 
-class CoinPrivatizer:
+class CoinPrivatizer(abstractPrivatizer.AbstractPrivatizer):
   _headsProbability = 0.5
 
   def __init__(self, headsProbability=0.5):
@@ -14,21 +15,11 @@ class CoinPrivatizer:
 
     self._headsProbability = probability
 
-  def privatize(self, data):
-    if (type(data) == list):
-      resultData = []
-      for value in data:
-        resultData.append(self.privatize(value))
-      return resultData
-    else:
-      return self.privatizeSingleAnswer(data)
+  def privatizeSingleAnswer(self, value): 
+    if (type(value) != bool):
+      raise ValueError('Value is not a bool value')
 
-
-  def privatizeSingleAnswer(self, truth): 
-    if (type(truth) != bool):
-      raise ValueError('Truth is not a bool value')
-
-    if (random.uniform(0, 1) > self._headsProbability): return truth
+    if (random.uniform(0, 1) > self._headsProbability): return value
     if (random.uniform(0, 1) > self._headsProbability): return True
     return False
     
