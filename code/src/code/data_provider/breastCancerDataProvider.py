@@ -12,12 +12,12 @@ class BreastCancerDP:
     def getAllData(self):
       if not self.loadedData:
         self.loadedData = load_breast_cancer()
-      return list(self.loadedData.data)
+      return self.loadedData.data
 
     def getAllTargets(self):
       if not self.loadedData:
         self.loadedData = load_breast_cancer()
-      return list(self.loadedData.target)
+      return self.loadedData.target
 
   def __init__(self, maxSize=None):
     if not BreastCancerDP.instance:

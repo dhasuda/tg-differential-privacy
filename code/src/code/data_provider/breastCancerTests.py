@@ -1,5 +1,6 @@
 import unittest
 import breastCancerDataProvider
+import numpy as np
 
 class BreastCancerDataProviderTests(unittest.TestCase):
   
@@ -17,12 +18,12 @@ class BreastCancerDataProviderTests(unittest.TestCase):
 
   def testGetAllData(self):
     dataProvider = breastCancerDataProvider.BreastCancerDP()
-    self.assertEqual(list, type(dataProvider.getAllData()))
+    self.assertEqual(np.ndarray, type(dataProvider.getAllData()))
     self.assertEqual(30, len(dataProvider.getAllData()[0]))
 
   def testGetAllTargets(self):
     dataProvider = breastCancerDataProvider.BreastCancerDP()
-    self.assertEqual(list, type(dataProvider.getAllTargets()))
+    self.assertEqual(np.ndarray, type(dataProvider.getAllTargets()))
 
 if __name__ == "__main__":
   unittest.main()
