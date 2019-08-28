@@ -4,20 +4,26 @@ class BreastCancerDP:
   instance = None
   class __BreastCancerDPSingleton:
     maxSize = None
+    loadedData = None
     def __init__(self, maxSize=None):
       x = 1
       self.maxSize = maxSize
 
+    def getAllData(self):
+      if not self.loadedData:
+        self.loadedData = load_breast_cancer()
+      return list(self.loadedData.data)
+
+    def getAllTargets(self):
+      if not self.loadedData:
+        self.loadedData = load_breast_cancer()
+      return list(self.loadedData.target)
+
   def __init__(self, maxSize=None):
     if not BreastCancerDP.instance:
-      BreastCancerDP.instance = BreastCancerDP.__BreastCancerDPSingleton()
+      BreastCancerDP.instance = BreastCancerDP.__BreastCancerDPSingleton(maxSize)
+    else:
+      BreastCancerDP.instance.maxSize = maxSize
     
   def __getattr__(self, name):
     return getattr(self.instance, name)
-
-# def get_data():
-#   data = load_breast_cancer()
-#   return data.
-
-# def get_data_result():
-  
