@@ -2,24 +2,19 @@ import numpy as np
 
 class GeneralAdapter:
   dimensions = 2
-  def __init__(self, dimensions):
+  initialVaue = 0
+  def __init__(self, dimensions, initialValue = 0):
     self.dimensions = dimensions
+    self.initialValue = initialValue
 
   def fromRaw(self, rawData):
-    if (type(rawData) != np.ndarray):
-      raise ValueError('Raw data must be a numpy ndarray')
-
-    adaptedData = []
-    for data in rawData:
-      floatList = []
-      if (type(data) == np.ndarray):
-        for value in data:
-          floatList.append(float(value))
-        adaptedData.append(list(floatList))
-      else:
-        adaptedData.append(toFloat(data))
-
-    return adaptedData
+    if (type(rawData) == np.ndarray):
+      adaptedData = []
+      for data in rawData:
+        adaptedData.append(self.fromRaw(data))
+      return adaptedData  
+    else:
+      return self.toFloat(rawData)
 
   def toFloat(self, value):
     try:
@@ -27,15 +22,16 @@ class GeneralAdapter:
     except:
       raise ValueError('Cannot parse to float')
 
-  def toBinaryInt(self, data):
+  def toDiscreteValue(self, data):
     if type(data) == list:
       intList = []
       for value in data:
-        intList.append(toBinaryInt(value))
+        intList.append(self.toDiscreteValue(value))
       return intList
     elif type(data) == float:
-      if (data >= 0.5):
-        return 1
-      return 0
+      discreteWithZeroMean = round(data - self.initialValue)
+      discreteWithinBounds = discreteWithZeroMean % self.dimensions
+      discreteValue = discreteWithinBounds + self.initialValue
+      return discreteValue
     else:
       raise ValueError('It only accepts lists of float values')
