@@ -81,3 +81,9 @@ Below, you can see all the packages installed:
 |wheel             | 0.33.4
 
 There will be times that some libs simply stop working inside jupyter notebook. There is no need to panic: uninstall and then reinstall the lib.
+
+## Tests
+
+There were two notebooks dedicated to the Decision Tree method.
+
+## Conclusion
