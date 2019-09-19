@@ -79,3 +79,5 @@ Below, you can see all the packages installed:
 |wcwidth           | 0.1.7
 |webencodings      | 0.5.1
 |wheel             | 0.33.4
+
+There will be times that some libs simply stop working inside jupyter notebook. There is no need to panic: uninstall and then reinstall the lib.
