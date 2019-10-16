@@ -12,11 +12,12 @@ class ExponentialPrivatizer(abstractPrivatizer.AbstractPrivatizer):
       raise ValueError('Not a valid scale')
     self._scale = scale
 
-  def privatizeSingleAnswer(self, value):
+  def privatizeSingleAnswer(self, value, averageValue=1.):
     sanitizedTruth = 0
     try:
       sanitizedTruth = float(value)
     except:
       raise ValueError('Not valid value to be privatized')
-    noise = np.random.exponential(self._scale, 1)[0]
+    averageValue = max(1., averageValue)
+    noise = np.random.exponential(self._scale * averageValue, 1)[0]
     return float(sanitizedTruth + noise)
