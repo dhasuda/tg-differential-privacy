@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 class AbstractPrivatizer(ABC):
-  def privatize(self, data, averageValue=1.):
+  def privatize(self, data, averageValue=0.001):
 
     if (type(data) == list):
       privatizedData = []

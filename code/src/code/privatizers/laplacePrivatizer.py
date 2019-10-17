@@ -18,6 +18,6 @@ class LaplacePrivatizer(abstractPrivatizer.AbstractPrivatizer):
       sanitizedTruth = float(value)
     except:
       raise ValueError('Not valid value to be privatized')
-    averageValue = max(1., averageValue)
+    averageValue = max(0.00001, averageValue)
     noise = np.random.laplace(self._mean, self._scale *  averageValue, 1)[0]
     return float(sanitizedTruth + noise)
