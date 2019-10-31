@@ -30,7 +30,15 @@ class GeneralAdapter:
       return intList
     elif type(data) == float:
       discreteWithZeroMean = round(data - self.initialValue)
-      discreteWithinBounds = discreteWithZeroMean % self.dimensions
+
+      discreteWithinBounds = 0
+      if (discreteWithZeroMean >= (self.dimensions-1)):
+        discreteWithinBounds = self.dimensions-1
+      elif(discreteWithZeroMean <= 0):
+        discreteWithinBounds = 0
+      else:
+        discreteWithinBounds = discreteWithZeroMean % self.dimensions
+
       discreteValue = discreteWithinBounds + self.initialValue
       return discreteValue
     else:
