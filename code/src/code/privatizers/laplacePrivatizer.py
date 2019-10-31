@@ -3,16 +3,14 @@ import abstractPrivatizer
 
 class LaplacePrivatizer(abstractPrivatizer.AbstractPrivatizer):
   _mean = 0.0
-  _scale = 1.0
   _epsilon = 1.0
 
-  def __init__(self, scale=1.):
-    if (type(scale) != float):
-      raise ValueError('Not a valid scale')
-    if (scale <= 0.0):
-      raise ValueError('Not a valid scale')
-    self._scale = scale
-    # self._epsilon = epsilon
+  def __init__(self, epsilon=1.):
+    if (type(epsilon) != float):
+      raise ValueError('Not a valid epsilon')
+    if (epsilon <= 0.0):
+      raise ValueError('Not a valid epsilon')
+    self._epsilon = epsilon
 
   def privatizeSingleAnswer(self, value, sensitivityValue=1.):
     sanitizedTruth = 0
