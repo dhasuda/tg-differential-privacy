@@ -1,36 +1,36 @@
 from abc import ABC, abstractmethod
 
 class AbstractPrivatizer(ABC):
-  def privatize(self, data, averageValue=0.001):
+  def privatize(self, data, sensitivityValue=0.001):
 
     if (type(data) == list):
       privatizedData = []
       counter = 0
-      average = averageValue
+      sensitivity = sensitivityValue
 
-      averageList = []
+      sensitivityList = []
       if (type(data[0]) == list):
           for i in range(len(data[0])):
             column = [row[i] for row in data]
-            singleAverageValue = sum(column) / len(column)
-            averageList.append(singleAverageValue)
+            singleSensitivityValue = abs(max(column) - min(column))
+            sensitivityList.append(singleSensitivityValue)
 
       for value in data:
         if (type(value) == list):
-          average = averageList
+          sensitivity = sensitivityList
         else:
-          if (type(averageValue) == float):
-            average = averageValue
+          if (type(sensitivityValue) == float):
+            sensitivity = sensitivityValue
           else:
-            average = averageValue[counter]
+            sensitivity = sensitivityValue[counter]
 
-        privatizedData.append(self.privatize(value, average))
+        privatizedData.append(self.privatize(value, sensitivity))
         counter += 1
       
       return privatizedData
 
     else:
-      return self.privatizeSingleAnswer(data, averageValue)
+      return self.privatizeSingleAnswer(data, sensitivityValue)
     
   @abstractmethod
   def privatizeSingleAnswer(self, value):
